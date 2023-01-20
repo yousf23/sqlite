@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
                 onPressed: () async {
                   int response = await sqlDb.insertData(
-                      "INSERT INTO 'notes' (note) VALUES ('note 4 ')");
+                      "INSERT INTO 'notes' (note) VALUES ('note 777777777')");
 
                   print(response);
                 },
@@ -41,14 +41,20 @@ class _MyAppState extends State<MyApp> {
                   print("$response");
                 },
                 child: Text('ReadData')),
-
-
-            ElevatedButton(onPressed: () async {
-               var ddd=  await  sqlDb.deleteData("notes");
-
-
-
-            }, child: Text('delete AlL'))
+            ElevatedButton(
+                onPressed: () async {
+                  int response = await sqlDb
+                      .deleteData("DELETE  FROM  'notes' WHERE id = 3  ");
+                  print('$response');
+                },
+                child: Text('delete AlL')),
+            ElevatedButton(
+                onPressed: () async {
+                  var response = await sqlDb.updateData(
+                      "UPDATE 'notes' SET 'note' = 'note six' WHERE  id = 2");
+                  print('$response');
+                },
+                child: Text('update'))
           ],
         ),
       ),

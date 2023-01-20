@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
                 onPressed: () async {
                   int response = await sqlDb.insertData(
-                      "INSERT INTO 'notes' (note) VALUES ('note three ')");
+                      "INSERT INTO 'notes' (note) VALUES ('note 777777777')");
 
                   print(response);
                 },

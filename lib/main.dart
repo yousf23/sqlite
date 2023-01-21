@@ -25,7 +25,9 @@ class _MyAppState extends State<MyApp> {
       body: Center(
         child: Column(
           children: [
+
             ElevatedButton(
+
                 onPressed: () async {
                   int response = await sqlDb.insertData(
                       "INSERT INTO 'notes' (note) VALUES ('note 777777777')");

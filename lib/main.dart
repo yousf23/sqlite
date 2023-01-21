@@ -17,6 +17,11 @@ class MyApp extends StatefulWidget {
 
 SqlDb sqlDb = SqlDb();
 
+Future<List<Map>> readData() async {
+  List<Map> response = await sqlDb.readData("SELECT * FROM 'notes'");
+  return response;
+}
+
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
@@ -25,9 +30,7 @@ class _MyAppState extends State<MyApp> {
       body: Center(
         child: Column(
           children: [
-
             ElevatedButton(
-
                 onPressed: () async {
                   int response = await sqlDb.insertData(
                       "INSERT INTO 'notes' (note) VALUES ('note 777777777')");
@@ -53,10 +56,22 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
                 onPressed: () async {
                   var response = await sqlDb.updateData(
-                      "UPDATE 'notes' SET 'note' = 'note six' WHERE  id = 2");
+                      "UPDATE 'notes' SET 'note' = 'note six' WHERE  id = 4");
                   print('$response');
                 },
-                child: Text('update'))
+                child: Text('update')),
+            FutureBuilder(
+                builder: (ctx, snapshot) {
+                  if (snapshot.hasData) {
+                    Text('');
+
+                  } else {
+
+                    Text('dddddddddd');
+                  }
+
+                },
+                future: readData()),
           ],
         ),
       ),

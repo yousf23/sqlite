@@ -17,49 +17,32 @@ class MyApp extends StatefulWidget {
 
 SqlDb sqlDb = SqlDb();
 
+Future<List<Map>> readData() async {
+  List<Map> response = await sqlDb.readData("SELECT * FROM 'notes'");
+  return response;
+}
+
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Column(
-          children: [
-
-            ElevatedButton(
-
-                onPressed: () async {
-                  int response = await sqlDb.insertData(
-                      "INSERT INTO 'notes' (note) VALUES ('note 777777777')");
-
-                  print(response);
-                },
-                child: Text('inseartData')),
-            ElevatedButton(
-                onPressed: () async {
-                  List<Map> response =
-                      await sqlDb.readData("SELECT * FROM 'notes'");
-
-                  print("$response");
-                },
-                child: Text('ReadData')),
-            ElevatedButton(
-                onPressed: () async {
-                  int response = await sqlDb
-                      .deleteData("DELETE  FROM  'notes' WHERE id = 3  ");
-                  print('$response');
-                },
-                child: Text('delete AlL')),
-            ElevatedButton(
-                onPressed: () async {
-                  var response = await sqlDb.updateData(
-                      "UPDATE 'notes' SET 'note' = 'note six' WHERE  id = 2");
-                  print('$response');
-                },
-                child: Text('update'))
-          ],
-        ),
-      ),
+          child: FutureBuilder(
+              builder: (ctx, AsyncSnapshot<List<Map>> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (ctx, i) {
+                        return Card(
+                          child: ListTile(title: Text('${snapshot.data![i]['note']}')),
+                        );
+                      });
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
+              future: readData())),
     );
   }
 }

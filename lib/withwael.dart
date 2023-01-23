@@ -22,9 +22,7 @@ class SqlDb {
   }
 
   _onUpgrade(Database db, int oldversion, newvesion) {
-
     print('onUpgrade =========================');
-
   }
 
   _oncreate(Database db, int version) async {
@@ -60,5 +58,11 @@ class SqlDb {
     Database? mydb = await db;
     int response = await mydb!.rawDelete(sql);
     return response;
+  }
+
+  deletemydatabase() async {
+    String databasepath = await getDatabasesPath();
+    String path = join(databasepath, 'youssef.db');
+    await deleteDatabase(path);
   }
 }

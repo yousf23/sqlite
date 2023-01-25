@@ -1,3 +1,4 @@
+import 'package:ddddddddddd/nextpage.dart';
 import 'package:ddddddddddd/withwael.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +42,21 @@ class _MyAppState extends State<MyApp> {
                 print("$response");
               },
               child: Text('botton twoo ')),
-          ElevatedButton(onPressed: () {}, child: Text('xxxxx')),
+          ElevatedButton(onPressed: () {
+
+            Navigator.push(context, MaterialPageRoute(builder: (ctx){
+             return NextPage();
+
+
+            }));
+
+          }, child: Text('xxxxx')),
+
+
+
         ],
+
+
       ),
       body: Center(
           child: FutureBuilder(
